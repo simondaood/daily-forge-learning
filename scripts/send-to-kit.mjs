@@ -25,14 +25,14 @@ if (process.env.FORCE_ISSUE) {
 } else {
   toSend = cur.filter((i) => !prevNums.has(i.n));
 }
-if (!toSend.length) { console.log("No new issues to send."); process.exit(0); }
+if (!toSend.length) { console.log(process.env.FORCE_ISSUE ? `::error::Issue #${process.env.FORCE_ISSUE} was not found in issues.js.` : "::notice::No new issues to send."); process.exit(process.env.FORCE_ISSUE ? 1 : 0); }
 if (toSend.length > 1 && !process.env.FORCE_ISSUE) {
   // Safety: only ever send the newest one automatically.
   toSend = [toSend.sort((a, b) => b.n - a.n)[0]];
 }
 
 const key = process.env.KIT_API_KEY;
-if (!key) { console.error("Missing KIT_API_KEY secret."); process.exit(1); }
+if (!key) { console.log("::error::The KIT_API_KEY secret is missing or empty. Add it under Settings > Secrets and variables > Actions, named exactly KIT_API_KEY."); process.exit(1); }
 
 const CAT = { leadership: "Leadership Lesson", psychology: "Psychology", theology: "Reformed Theology in 5 Minutes", history: "History Study", growth: "Personal Development", business: "Business", philosophy: "Philosophy" };
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -78,7 +78,7 @@ for (const i of toSend) {
     body: JSON.stringify(body),
   });
   const text = await r.text();
-  if (!r.ok) { console.error(`Kit returned ${r.status}: ${text}`); process.exit(1); }
+  if (!r.ok) { console.log(`::error::Kit rejected the request (HTTP ${r.status}): ${text.slice(0, 500).replace(/\n/g, " ")}`); process.exit(1); }
   const b = JSON.parse(text).broadcast || {};
-  console.log(`Issue #${i.n}: Kit broadcast ${b.id} created (${mode === "draft" ? "draft only" : "scheduled for " + sendAt}).`);
+  console.log(`::notice::Issue #${i.n}: Kit broadcast ${b.id} created (${mode === "draft" ? "draft only" : "scheduled for " + sendAt}).`);
 }
