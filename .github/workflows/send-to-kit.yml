@@ -36,5 +36,5 @@ jobs:
         env:
           KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
           FORCE_ISSUE: ${{ github.event.inputs.issue }}
-          MODE: ${{ github.event.inputs.mode || vars.KIT_AUTO_MODE || 'draft' }}
+          MODE: ${{ github.event.inputs.mode || vars.KIT_AUTO_MODE || 'send' }}
         run: node scripts/send-to-kit.mjs /tmp/prev-issues.js issues.js
