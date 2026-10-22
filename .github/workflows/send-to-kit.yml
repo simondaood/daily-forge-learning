@@ -1,0 +1,40 @@
+name: Send new issue to Kit
+
+on:
+  push:
+    branches: [main]
+    paths: [issues.js]
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "Issue number to send (leave blank for none)"
+        required: true
+      mode:
+        description: "draft = save in Kit only, send = email subscribers"
+        required: true
+        default: draft
+        type: choice
+        options: [draft, send]
+
+concurrency:
+  group: send-to-kit
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Get previous issues list
+        run: git show HEAD~1:issues.js > /tmp/prev-issues.js 2>/dev/null || echo "" > /tmp/prev-issues.js
+      - name: Send to Kit
+        env:
+          KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+          FORCE_ISSUE: ${{ github.event.inputs.issue }}
+          MODE: ${{ github.event.inputs.mode || 'send' }}
+        run: node scripts/send-to-kit.mjs /tmp/prev-issues.js issues.js
