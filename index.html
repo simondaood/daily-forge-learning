@@ -185,6 +185,7 @@ const CATS = [
 const ISSUES = window.ISSUES || [];
 const UPCOMING = [];
 const catOf = id => CATS.find(c => c.id === id);
+const KIT_FORM = "https://app.kit.com/forms/10083780/subscriptions";
 
 /* Cover motifs, drawn on a 400×225 canvas in the Forge palette */
 const SKY = "#365A72", FROST = "#6991AA", COOK = "#A48E7F", CARA = "#C1B3A8", WOOL = "#DDDFDE", DEEP = "#24404F";
@@ -277,9 +278,9 @@ function sidebar() {
   return `<aside>
     <div class="panel" id="subscribe"><h3>Get one idea every morning</h3>
       <p>A two-minute read, every morning of the week. Research you can trust and one rep to practice today.</p>
-      <form class="signup" id="signup" novalidate>
+      <form class="signup" id="signup" action="${KIT_FORM}" method="post" novalidate>
         <label class="label" for="email">Email address</label>
-        <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        <input id="email" name="email_address" type="email" placeholder="you@example.com" autocomplete="email" required>
         <button class="btn btn-primary" type="submit">Subscribe</button>
         <div class="note" id="signup-note" aria-live="polite"></div>
       </form></div>
@@ -355,10 +356,20 @@ function route() {
   const form = document.getElementById("signup");
   if (form) form.addEventListener("submit", ev => {
     ev.preventDefault();
-    const v = document.getElementById("email").value.trim();
-    document.getElementById("signup-note").textContent = /.+@.+\..+/.test(v)
-      ? "Thanks! Email signups open very soon. Check back this week."
-      : "Enter a valid email address, like name@example.com.";
+    const input = document.getElementById("email");
+    const note = document.getElementById("signup-note");
+    const btn = form.querySelector("button");
+    const v = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { note.textContent = "Enter a valid email address, like name@example.com."; input.focus(); return; }
+    btn.disabled = true; btn.textContent = "Subscribing…"; note.textContent = "";
+    fetch(KIT_FORM, { method: "POST", body: new FormData(form), headers: { Accept: "application/json" } })
+      .then(r => r.json())
+      .then(d => {
+        if (d && d.status === "success") {
+          form.innerHTML = `<p class="note" style="color:var(--sky);font-weight:600;font-size:.9375rem">You're in. Check your inbox and confirm your email to start getting one idea every morning.</p>`;
+        } else { throw new Error("rejected"); }
+      })
+      .catch(() => { HTMLFormElement.prototype.submit.call(form); });
   });
 }
 window.addEventListener("hashchange", route);
