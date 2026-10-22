@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="One idea a day. Forged into practice. A two-minute daily read on leadership, psychology, theology, history, personal development, business and philosophy by Simon Daood.">
+<meta property="og:title" content="The Daily Forge Learning">
+<meta property="og:description" content="One idea a day. Forged into practice.">
+<title>The Daily Forge Learning</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap">
+<style>
+/* Layout: quiet editorial index — wordmark + topic bar, one featured issue, a clean dated list, a slim sidebar with the weekly rotation and signup. */
+:root {
+  --sky: #365A72;      /* Cold Sky — primary */
+  --frost: #6991AA;    /* Frost — accent */
+  --cookies: #A48E7F;  /* Cookies — warm meta */
+  --caramel: #C1B3A8;  /* Caramel — soft tone */
+  --wool: #DDDFDE;     /* Wool — light ground */
+  --bg: #FFFFFF;
+  --surface: #FFFFFF;
+  --fg: #1F2A31;
+  --muted: #5D6A72;
+  --meta: #8A7566;
+  --line: #DDDFDE;
+  --tint: #F1ECE8;
+  --link: #365A72;
+  --chip-bg: #E8EEF2;
+  --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+  --font-ui: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --s-1: 0.8125rem; --s0: 1rem; --s1: 1.1875rem; --s2: 1.5rem; --s3: 2rem; --s4: 2.75rem;
+}
+/* Single light look by design: always a white page. */
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: var(--s0); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--frost); outline-offset: 3px; border-radius: 2px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+
+/* Header */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+header.site { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; }
+.brand { display: flex; flex-direction: column; line-height: 1.1; color: var(--fg); }
+.brand:hover { text-decoration: none; }
+.brand .eyebrow { font-size: 0.6875rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--meta); font-weight: 600; }
+.brand .name { font-family: var(--font-display); font-size: 1.375rem; font-weight: 600; letter-spacing: -0.01em; }
+.brand .name span { color: var(--sky); }
+.actions { display: flex; gap: 10px; align-items: center; }
+.btn { font-family: var(--font-ui); font-weight: 600; font-size: 0.875rem; border-radius: 6px; padding: 9px 16px; border: 1px solid transparent; cursor: pointer; }
+.btn-primary { background: #365A72; color: #fff; }
+.btn-primary:hover { background: #2C4B5F; text-decoration: none; }
+.topics { display: flex; gap: 4px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+.topics::-webkit-scrollbar { display: none; }
+.topics a { white-space: nowrap; font-size: 0.875rem; font-weight: 500; color: var(--muted); padding: 6px 12px; border-radius: 999px; }
+.topics a:hover { color: var(--fg); background: var(--chip-bg); text-decoration: none; }
+.topics a[aria-current="page"] { color: var(--sky); background: var(--chip-bg); font-weight: 600; }
+
+/* Main grid */
+main { padding-block: 40px 64px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 56px; }
+@media (max-width: 880px) { .grid { grid-template-columns: minmax(0, 1fr); gap: 40px; } }
+
+.label { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--meta); }
+.meta { font-size: var(--s-1); color: var(--meta); font-variant-numeric: tabular-nums; }
+.cat { color: var(--sky); font-weight: 600; }
+
+/* Featured */
+.featured { padding-bottom: 36px; border-bottom: 1px solid var(--line); display: grid; gap: 14px; }
+.featured h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.5vw, var(--s4)); line-height: 1.12; letter-spacing: -0.015em; margin: 0; text-wrap: balance; max-width: 20ch; }
+.featured h1 a { color: var(--fg); }
+.featured p.dek { font-size: var(--s1); color: var(--muted); margin: 0; max-width: 58ch; }
+.readmore { font-weight: 600; font-size: 0.9375rem; }
+
+/* List */
+.section-head { display: flex; justify-content: space-between; align-items: baseline; margin: 36px 0 8px; }
+.list { list-style: none; margin: 0; padding: 0; }
+.list li { padding: 22px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; }
+.list h2 { font-family: var(--font-display); font-weight: 500; font-size: var(--s2); line-height: 1.25; margin: 0; text-wrap: balance; }
+.list h2 a { color: var(--fg); }
+.list p { margin: 0; color: var(--muted); max-width: 62ch; }
+.upcoming h2 { color: var(--muted); }
+.pill { display: inline-block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 8px; border-radius: 999px; background: var(--tint); color: var(--meta); margin-left: 8px; vertical-align: 1px; }
+.empty { padding: 28px 0; color: var(--muted); }
+
+/* Sidebar */
+aside { display: grid; gap: 28px; align-content: start; }
+.panel { border-top: 2px solid var(--sky); padding-top: 14px; display: grid; gap: 12px; }
+.panel h3 { font-family: var(--font-display); font-size: var(--s1); font-weight: 600; margin: 0; }
+.panel p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+.rotation { list-style: none; margin: 0; padding: 0; display: grid; }
+.rotation li { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 0.9375rem; }
+.rotation li:last-child { border-bottom: 0; }
+.rotation .d { font-weight: 700; color: var(--meta); font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; padding-top: 2px; }
+.rotation .today { color: var(--sky); }
+form.signup { display: grid; gap: 8px; }
+form.signup input { font: inherit; font-size: 0.9375rem; padding: 10px 12px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--fg); width: 100%; }
+.note { font-size: var(--s-1); color: var(--meta); min-height: 1.2em; }
+
+/* Article */
+.article { max-width: 680px; }
+.crumbs { font-size: 0.875rem; margin-bottom: 20px; }
+.article h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 5vw, 2.75rem); line-height: 1.12; letter-spacing: -0.015em; margin: 10px 0 24px; text-wrap: balance; }
+.article .lede { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.45; margin: 0 0 28px; padding-bottom: 28px; border-bottom: 1px solid var(--line); }
+.block { margin-bottom: 26px; }
+.block .label { display: block; margin-bottom: 6px; color: var(--sky); }
+.block p { margin: 0; font-family: var(--font-display); font-size: 1.1875rem; line-height: 1.65; }
+.callout { background: var(--tint); border-left: 3px solid var(--frost); padding: 18px 20px; border-radius: 0 6px 6px 0; }
+.callout p em { font-style: italic; }
+.signoff { margin: 32px 0; color: var(--muted); font-size: 0.9375rem; }
+.sources { border-top: 1px solid var(--line); padding-top: 18px; }
+.sources ul { margin: 8px 0 0; padding-left: 18px; font-size: 0.875rem; color: var(--muted); display: grid; gap: 4px; }
+.cat-head { padding-bottom: 28px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+.cat-head h1 { font-family: var(--font-display); font-weight: 500; font-size: clamp(2rem, 4.5vw, 2.5rem); margin: 0; }
+.cat-head p { margin: 0; color: var(--muted); max-width: 58ch; font-size: var(--s1); }
+
+/* Generated cover art: one motif per category, title set on the image */
+.cover { position: relative; display: block; overflow: hidden; border-radius: 8px; aspect-ratio: 16 / 9; max-width: 100%; color: #fff; isolation: isolate; }
+.cover:hover { text-decoration: none; }
+.cover svg { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -1; transition: transform .6s ease; }
+.cover:hover svg { transform: scale(1.03); }
+.cover .ct { position: absolute; inset: auto 0 0 0; padding: 7% 7% 6%; display: grid; gap: 6px; }
+.cover .ck { font-family: var(--font-ui); font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; opacity: .85; }
+.cover .tt { font-family: var(--font-display); font-weight: 500; line-height: 1.12; letter-spacing: -0.01em; text-wrap: balance; }
+.cover.dark-ink { color: #1F2A31; }
+.cover.lg .tt { font-size: clamp(1.6rem, 4vw, 2.6rem); max-width: 18ch; }
+.cover.sm { border-radius: 6px; }
+.cover.sm .tt { font-size: 1rem; }
+.cover.sm .ck { font-size: 0.5625rem; }
+.cover.sm .ct { padding: 8%; gap: 3px; }
+.cover .num { position: absolute; top: 6%; right: 6%; font-family: var(--font-display); font-size: 0.9375rem; opacity: .8; font-variant-numeric: tabular-nums; }
+.cover.sm .num { font-size: 0.75rem; }
+.list li { grid-template-columns: 220px minmax(0, 1fr); column-gap: 24px; align-items: start; }
+.list li > .cover { grid-row: span 3; grid-column: 1; }
+.list li > :not(.cover) { grid-column: 2; }
+@media (max-width: 560px) { .list li { grid-template-columns: minmax(0, 1fr); } .list li > .cover, .list li > :not(.cover) { grid-row: auto; grid-column: 1; } }
+.featured .cover { margin-bottom: 6px; }
+.article .cover { margin: 8px 0 28px; }
+footer.site { border-top: 1px solid var(--line); background: var(--surface); }
+footer .row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; padding-block: 24px; font-size: 0.875rem; color: var(--meta); }
+.preview-flag { background: var(--tint); color: var(--meta); font-size: 0.8125rem; text-align: center; padding-block: 6px; }
+@media (prefers-reduced-motion: no-preference) { #view { animation: fade .25s ease; } }
+@keyframes fade { from { opacity: .4; } to { opacity: 1; } }
+</style>
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="bar">
+      <a class="brand" href="#home" data-nav="home">
+        <span class="eyebrow">Forge Leadership Group</span>
+        <span class="name">The Daily <span>Forge</span> Learning</span>
+      </a>
+      <div class="actions"><a class="btn btn-primary" href="#subscribe" data-nav="subscribe">Subscribe</a></div>
+    </div>
+    <nav class="topics" id="topics" aria-label="Topics"></nav>
+  </div>
+</header>
+
+<main class="wrap"><div id="view"></div></main>
+
+<footer class="site">
+  <div class="wrap row">
+    <span>© 2026 Forge Leadership Group · simondaood.com</span>
+    <span>@simondaood.coach</span>
+  </div>
+</footer>
+
+<script src="issues.js"></script>
+<script>
+const CATS = [
+  { id: "leadership", name: "Leadership", day: "Mon", desc: "One leadership principle, tested against evidence and real decisions." },
+  { id: "psychology", name: "Psychology", day: "Tue", desc: "Famous studies and social experiments, and whether they held up." },
+  { id: "theology", name: "Theology", day: "Wed", desc: "Reformed theology in five minutes, grounded in Scripture (ESV)." },
+  { id: "history", name: "History", day: "Thu", desc: "Leaders and turning points, and what they teach us now." },
+  { id: "growth", name: "Personal Development", day: "Fri", desc: "Research-backed habits for closing the gap between knowing and doing." },
+  { id: "business", name: "Business", day: "Sat", desc: "One practical idea for owners and entrepreneurs: strategy, sales, customers, and real company cases." },
+  { id: "philosophy", name: "Philosophy", day: "Sun", desc: "One great idea from a major thinker, weighed fairly and held up to a biblical worldview." }
+];
+const ISSUES = window.ISSUES || [];
+const UPCOMING = [];
+const catOf = id => CATS.find(c => c.id === id);
+
+/* Cover motifs, drawn on a 400×225 canvas in the Forge palette */
+const SKY = "#365A72", FROST = "#6991AA", COOK = "#A48E7F", CARA = "#C1B3A8", WOOL = "#DDDFDE", DEEP = "#24404F";
+const MOTIFS = {
+  // If-then: one path forks at a decision node; the chosen branch is lit
+  growth: { ink: "light", svg: `
+    <rect width="400" height="225" fill="${SKY}"/>
+    <path d="M-10 120 H170" stroke="${FROST}" stroke-width="2"/>
+    <path d="M170 120 C230 120 240 50 330 50 H420" stroke="${WOOL}" stroke-width="3" fill="none"/>
+    <path d="M170 120 C230 120 240 175 330 175 H420" stroke="${FROST}" stroke-width="2" stroke-dasharray="4 7" fill="none" opacity=".7"/>
+    <circle cx="170" cy="120" r="9" fill="${SKY}" stroke="${WOOL}" stroke-width="3"/>
+    <circle cx="330" cy="50" r="5" fill="${WOOL}"/>
+    <g fill="${FROST}" opacity=".35">${Array.from({length: 9}, (_, k) => `<circle cx="${30 + k*14}" cy="120" r="1.6"/>`).join("")}</g>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Ascending steps with a single figure-line at the top
+  leadership: { ink: "light", svg: `
+    <rect width="400" height="225" fill="${DEEP}"/>
+    ${[0,1,2,3,4].map(k => `<rect x="${170 + k*48}" y="${170 - k*30}" width="48" height="${60 + k*30}" fill="${k === 4 ? FROST : SKY}" opacity="${0.55 + k*0.1}"/>`).join("")}
+    <path d="M362 50 V22" stroke="${WOOL}" stroke-width="3"/><circle cx="362" cy="16" r="5" fill="${WOOL}"/>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Dot field with a bell curve: data and its distribution
+  psychology: { ink: "light", svg: `
+    <rect width="400" height="225" fill="${FROST}"/>
+    <g fill="${WOOL}">${Array.from({length: 12*6}, (_, k) => { const x = 30 + (k%12)*32, y = 20 + Math.floor(k/12)*20; const lit = (k*7)%11 === 0; return `<circle cx="${x}" cy="${y}" r="${lit ? 3.2 : 1.6}" opacity="${lit ? .95 : .4}"/>`; }).join("")}</g>
+    <path d="M0 200 C120 200 150 70 200 70 C250 70 280 200 400 200" stroke="${DEEP}" stroke-width="3" fill="none" opacity=".55"/>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Nested arches: a doorway of light
+  theology: { ink: "light", svg: `
+    <rect width="400" height="225" fill="${COOK}"/>
+    ${[0,1,2,3].map(k => { const w = 150 - k*34, x = 290 - w/2; return `<path d="M${x} 240 V${110 - k*0 + k*18} A${w/2} ${w/2} 0 0 1 ${x + w} ${110 + k*18} V240" fill="${k % 2 ? CARA : "#8C7869"}" opacity="${k === 3 ? 1 : .85}"/>`; }).join("")}
+    <path d="M290 150 V215 M270 172 H310" stroke="${WOOL}" stroke-width="3"/>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Timeline with columns of differing height: eras and turning points
+  history: { ink: "light", svg: `
+    <rect width="400" height="225" fill="#6E5D51"/>
+    <path d="M0 150 H400" stroke="${CARA}" stroke-width="2"/>
+    ${Array.from({length: 21}, (_, k) => `<path d="M${10 + k*19} 150 V${k % 5 === 0 ? 138 : 144}" stroke="${CARA}" stroke-width="1.5"/>`).join("")}
+    ${[[220,70],[262,40],[304,90],[346,55]].map(([x,h]) => `<rect x="${x}" y="${150 - h - 20}" width="22" height="${h}" fill="${CARA}" opacity=".55"/>`).join("")}
+    <circle cx="273" cy="150" r="7" fill="${WOOL}"/>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Concentric orbits around a single point: first principles, contemplation
+  philosophy: { ink: "light", svg: `
+    <rect width="400" height="225" fill="#2F3B44"/>
+    ${[110,84,58,34].map((r, k) => `<circle cx="290" cy="96" r="${r}" fill="none" stroke="${[CARA, COOK, FROST, WOOL][k]}" stroke-width="${k === 3 ? 2 : 1.4}" opacity="${0.35 + k*0.18}"/>`).join("")}
+    <circle cx="290" cy="96" r="6" fill="${WOOL}"/>
+    <circle cx="${290 + 84*Math.cos(-0.6)}" cy="${96 + 84*Math.sin(-0.6)}" r="4" fill="${COOK}"/>
+    <circle cx="${290 + 58*Math.cos(2.4)}" cy="${96 + 58*Math.sin(2.4)}" r="3.5" fill="${FROST}"/>
+    <rect width="400" height="225" fill="url(#fade)"/>` },
+  // Ledger grid with a rising line and its breakout point: the business case
+  business: { ink: "dark", svg: `
+    <rect width="400" height="225" fill="${WOOL}"/>
+    <g stroke="${CARA}" stroke-width="1">${Array.from({length: 9}, (_, k) => `<path d="M${k*50} 0 V225"/>`).join("")}${Array.from({length: 5}, (_, k) => `<path d="M0 ${k*50 + 12} H400"/>`).join("")}</g>
+    ${[0,1,2,3,4,5].map(k => `<rect x="${168 + k*36}" y="${150 - k*16}" width="22" height="${75 + k*16}" fill="${k === 5 ? SKY : FROST}" opacity="${k === 5 ? 1 : .45}"/>`).join("")}
+    <path d="M150 150 L215 128 L250 136 L300 90 L340 70 L390 30" stroke="${SKY}" stroke-width="3" fill="none"/>
+    <circle cx="390" cy="30" r="6" fill="${SKY}"/>
+    <rect width="400" height="225" fill="url(#fadelight)"/>` }
+};
+function cover(catId, title, size, num, href) {
+  const html = coverInner(catId, title, size, num);
+  return href ? html.replace(/^<span class="cover/, `<a href="${href}" class="cover`).replace(/<\/span>$/, "</a>") : html;
+}
+function coverInner(catId, title, size, num) {
+  const m = MOTIFS[catId], c = catOf(catId);
+  const defs = `<defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1"><stop offset=".35" stop-color="#1F2A31" stop-opacity="0"/><stop offset="1" stop-color="#1F2A31" stop-opacity=".55"/></linearGradient>
+    <linearGradient id="fadelight" x1="0" y1="0" x2="0" y2="1"><stop offset=".4" stop-color="#FFFFFF" stop-opacity="0"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".7"/></linearGradient></defs>`;
+  return `<span class="cover ${size} ${m.ink === "dark" ? "dark-ink" : ""}" role="img" aria-label="${esc(c.name)} cover: ${esc(title)}">
+    <svg viewBox="0 0 400 225" preserveAspectRatio="xMidYMid slice" aria-hidden="true">${defs}${m.svg}</svg>
+    ${num ? `<span class="num">No. ${num}</span>` : ""}
+    <span class="ct"><span class="ck">${esc(c.name)}</span><span class="tt">${esc(title)}</span></span></span>`;
+}
+const view = document.getElementById("view");
+const topics = document.getElementById("topics");
+const esc = s => s.replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const todayDay = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
+
+topics.innerHTML = `<a href="#home" data-nav="home">All issues</a>` + CATS.map(c => `<a href="#${c.id}" data-nav="${c.id}">${c.name}</a>`).join("") + `<a href="#about" data-nav="about">About</a>`;
+
+function itemRow(i) {
+  const c = catOf(i.cat);
+  return `<li>${cover(i.cat, i.title, "sm", i.n, "#issue-" + i.n)}<div class="meta"><span class="cat">${c.name}</span> · Issue #${i.n} · ${i.date} · ${i.read} read</div>
+    <h2><a href="#issue-${i.n}">${esc(i.title)}</a></h2><p>${esc(i.idea)}</p></li>`;
+}
+function upcomingRow(u) {
+  const c = catOf(u.cat);
+  return `<li class="upcoming">${cover(u.cat, c.name + " issue", "sm")}<div class="meta"><span class="cat">${c.name}</span> · ${u.when}<span class="pill">Coming</span></div>
+    <h2>${c.name} issue</h2><p>${c.desc}</p></li>`;
+}
+function sidebar() {
+  return `<aside>
+    <div class="panel" id="subscribe"><h3>Get one idea every morning</h3>
+      <p>A two-minute read, every morning of the week. Research you can trust and one rep to practice today.</p>
+      <form class="signup" id="signup" novalidate>
+        <label class="label" for="email">Email address</label>
+        <input id="email" type="email" placeholder="you@example.com" autocomplete="email">
+        <button class="btn btn-primary" type="submit">Subscribe</button>
+        <div class="note" id="signup-note" aria-live="polite"></div>
+      </form></div>
+    <div class="panel"><h3>The weekly rotation</h3>
+      <ul class="rotation">${CATS.map(c => `<li><span class="d ${c.day === todayDay ? "today" : ""}">${c.day}</span><a href="#${c.id}">${c.name}</a></li>`).join("")}</ul></div>
+  </aside>`;
+}
+function home() {
+  const f = ISSUES[0], c = catOf(f.cat);
+  return `<div class="grid"><div style="min-width:0">
+    <section class="featured"><span class="label">Latest issue</span>
+      ${cover(f.cat, f.title, "lg", f.n, "#issue-" + f.n)}
+      <div class="meta"><span class="cat">${c.name}</span> · Issue #${f.n} · ${f.date} · ${f.read} read</div>
+      <h1><a href="#issue-${f.n}">${esc(f.title)}</a></h1>
+      <p class="dek">${esc(f.idea)}</p>
+      <a class="readmore" href="#issue-${f.n}">Read the issue →</a></section>
+    <div class="section-head"><span class="label">Recent issues</span></div>
+    <ul class="list">${ISSUES.slice(1).map(itemRow).join("")}</ul>
+  </div>${sidebar()}</div>`;
+}
+function category(id) {
+  const c = catOf(id);
+  const items = ISSUES.filter(i => i.cat === id);
+  const up = UPCOMING.filter(u => u.cat === id);
+  return `<div class="grid"><div style="min-width:0">
+    <section class="cat-head"><span class="label">Every ${{Mon:"Monday",Tue:"Tuesday",Wed:"Wednesday",Thu:"Thursday",Fri:"Friday",Sat:"Saturday",Sun:"Sunday"}[c.day]}</span>
+      <h1>${c.name}</h1><p>${c.desc}</p></section>
+    <ul class="list">${items.map(itemRow).join("")}${up.map(upcomingRow).join("")}</ul>
+    ${items.length + up.length === 0 ? `<p class="empty">The first ${c.name} issue arrives next ${c.day}.</p>` : ""}
+  </div>${sidebar()}</div>`;
+}
+function issue(n) {
+  const i = ISSUES.find(x => x.n === n);
+  if (!i) return home();
+  const c = catOf(i.cat);
+  return `<div class="grid"><article class="article" style="min-width:0">
+    <div class="crumbs"><a href="#home">All issues</a> / <a href="#${c.id}">${c.name}</a></div>
+    <div class="meta"><span class="cat">${c.name}</span> · Issue #${i.n} · ${i.date} · ${i.read} read</div>
+    <h1>${esc(i.title)}</h1>
+    ${cover(i.cat, i.title, "lg", i.n)}
+    <p class="lede">${esc(i.idea)}</p>
+    <div class="block"><span class="label">The Evidence</span><p>${esc(i.evidence)}</p></div>
+    <div class="block"><span class="label">Did It Hold Up?</span><p>${esc(i.held)}</p></div>
+    <div class="block"><span class="label">The Gap</span><p>${esc(i.gap)}</p></div>
+    <div class="block"><span class="label">The Forge · ${i.forge[0]}</span><p>${esc(i.forge[1])}</p></div>
+    <div class="block callout"><span class="label">Today's Rep</span><p>${i.rep}</p></div>
+    <div class="block callout"><span class="label">Sit With This</span><p>${esc(i.sit)}</p></div>
+    <p class="signoff">— Simon · @simondaood.coach</p>
+    <div class="sources"><span class="label">Sources</span><ul>${i.sources.map(s => `<li><a href="${s[1]}" target="_blank" rel="noopener">${esc(s[0])}</a></li>`).join("")}</ul></div>
+  </article>${sidebar()}</div>`;
+}
+function about() {
+  return `<div class="grid"><div class="article" style="min-width:0">
+    <span class="label">About</span>
+    <h1>One idea a day. Forged into practice.</h1>
+    <div class="block"><p>The Daily Forge Learning is a two-minute morning read for leaders who want to grow on purpose. Each issue takes one idea from leadership, psychology, theology, history, personal development, business or philosophy, checks it against real evidence, and ends with one thing to practice today.</p></div>
+    <div class="block"><p>Most of us already know more than we live. This newsletter is built to close that gap, one small rep at a time.</p></div>
+    <div class="block callout"><span class="label">Written by Simon Daood</span><p>Maxwell Leadership Certified Trainer, Speaker and Coach, founder of Forge Leadership Group, and author of <em>Nobody Taught Me This: The Leadership Principles God Uses to Build Men of Value</em>.</p></div>
+  </div>${sidebar()}</div>`;
+}
+function route() {
+  const h = (location.hash || "#home").slice(1);
+  let html;
+  if (h.startsWith("issue-")) html = issue(parseInt(h.slice(6), 10));
+  else if (h === "about") html = about();
+  else if (catOf(h)) html = category(h);
+  else html = home();
+  view.innerHTML = html;
+  const active = h.startsWith("issue-") ? (ISSUES.find(x => "issue-" + x.n === h) || {}).cat : (h === "subscribe" ? "home" : h);
+  topics.querySelectorAll("a").forEach(a => { if (a.dataset.nav === active) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current"); });
+  if (h === "subscribe") { const e = document.getElementById("email"); if (e) { e.scrollIntoView({ block: "center" }); e.focus({ preventScroll: true }); } }
+  else window.scrollTo(0, 0);
+  const form = document.getElementById("signup");
+  if (form) form.addEventListener("submit", ev => {
+    ev.preventDefault();
+    const v = document.getElementById("email").value.trim();
+    document.getElementById("signup-note").textContent = /.+@.+\..+/.test(v)
+      ? "Thanks! Email signups open very soon. Check back this week."
+      : "Enter a valid email address, like name@example.com.";
+  });
+}
+window.addEventListener("hashchange", route);
+route();
+</script>
+
+</body>
+</html>
