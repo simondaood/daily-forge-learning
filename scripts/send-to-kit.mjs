@@ -31,7 +31,7 @@ if (toSend.length > 1 && !process.env.FORCE_ISSUE) {
   toSend = [toSend.sort((a, b) => b.n - a.n)[0]];
 }
 
-const key = process.env.KIT_API_KEY;
+const key = (process.env.KIT_API_KEY || "").trim();
 if (!key) { console.log("::error::The KIT_API_KEY secret is missing or empty. Add it under Settings > Secrets and variables > Actions, named exactly KIT_API_KEY."); process.exit(1); }
 
 const CAT = { leadership: "Leadership Lesson", psychology: "Psychology", theology: "Reformed Theology in 5 Minutes", history: "History Study", growth: "Personal Development", business: "Business", philosophy: "Philosophy" };
